@@ -38,12 +38,12 @@ Requires [runsvdir-magisk](https://github.com/sorubedo/runsvdir-magisk) to be in
 ## SHA-256
 
 ```text
-c2f19900568e46c68874217277a1e64804aa672825deea5e6d717d72cc7ee195  openlist-runsv-4.2.7-beta.20261003-nomount-arm64-v8a.zip
-6b681b76622b9c55e76f63d8c4af024f7e8f967671fa4f3f2fc22529cc375338  openlist-runsv-4.2.7-beta.20261003-nomount-armeabi-v7a.zip
-f87e318872f3e1879c1ab440bca9e4f189d48a4b10c2fed5a53f4a2ba4247d31  openlist-runsv-4.2.7-beta.20261003-nomount-x86_64.zip
-07be3f1425f857b89c6c7c0f6190d7c3b12f4e7811c98e9a5038232d954a16f1  openlist-runsv-4.2.7-beta.20261003-nomount-x86.zip
-db28760740216f3b7a316e6d5fb3b1b3a55d65303c25ab1ba423f08dc558b8c0  openlist-runsv-4.2.7-beta.20261003-mount-arm64-v8a.zip
-3adfbc7c8827bd7d24e8c4d4f7d43885874022937387d37d6847a3a38b3a0d68  openlist-runsv-4.2.7-beta.20261003-mount-armeabi-v7a.zip
-3227472c405434b0c7ae83bd88a12a741eae4a646aa6714169ed269bdac28717  openlist-runsv-4.2.7-beta.20261003-mount-x86_64.zip
-40376ce37495d56e7511bca9ab58a62253fc5e8ccb8b48facbf44b20d77de447  openlist-runsv-4.2.7-beta.20261003-mount-x86.zip
+9a2a9a675c0ac6bd060820cda5d408ff30b8c8ad9f3945de33b65f8443e0acc9  openlist-runsv-4.2.7-beta.20261003-nomount-arm64-v8a.zip
+971422e8470174b3f71a6932a5c33fb2d4b28304b6e986c81f48caa27455f5bf  openlist-runsv-4.2.7-beta.20261003-nomount-armeabi-v7a.zip
+9fa2d610fbd27e5d29d2de3ca3cf5575b7ac7f2340803a5a865c2c3727d27e7a  openlist-runsv-4.2.7-beta.20261003-nomount-x86_64.zip
+1dfd16693776f1ec1c27c99d79d4560e15c682bb11b727df8e743f616ddf9da8  openlist-runsv-4.2.7-beta.20261003-nomount-x86.zip
+58eccb147102d9ff4f408df30f17f581f51e506466d813057101620d2ca82038  openlist-runsv-4.2.7-beta.20261003-mount-arm64-v8a.zip
+878b19d5845c49772afd56fa29c3bb876390dc5bcb038ee978f885a187a1d7b5  openlist-runsv-4.2.7-beta.20261003-mount-armeabi-v7a.zip
+0e32c0df3131149fdba0ade428d1b3e86f7dc97c2c2c78b551ca2bf6906af786  openlist-runsv-4.2.7-beta.20261003-mount-x86_64.zip
+efd71b903379d2a2a45ecea816856cedb9c5540af4e8cbed9aeec518a2c5a62f  openlist-runsv-4.2.7-beta.20261003-mount-x86.zip
 ```

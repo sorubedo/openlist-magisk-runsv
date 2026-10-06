@@ -36,12 +36,12 @@ Requires [runsvdir-magisk](https://github.com/sorubedo/runsvdir-magisk) to be in
 ## SHA-256
 
 ```text
-4df2a24a29324cdf85677a24b9614095f96dc8d94c1652e7aad8a712e135f632  openlist-runsv-4.2.6-nomount-arm64-v8a.zip
-f139203de38ee792e034065e6a645f89e1be0ea0e33a1ac373ca23210815ed3a  openlist-runsv-4.2.6-nomount-armeabi-v7a.zip
-0f93770bae85fce8422361e65b1f00e6afc0d14a21e371d8a9d3fddc8fc0417b  openlist-runsv-4.2.6-nomount-x86_64.zip
-5f30c28372a68af07f5700cc05af9e1d85073aa6e5d0d76d8f0fb00c8eb5c049  openlist-runsv-4.2.6-nomount-x86.zip
-70be72ffc9c8060e8aebd6165e504b988f2194b9f51b9076b2c1d2752e7cbb83  openlist-runsv-4.2.6-mount-arm64-v8a.zip
-174e0545f11db56ebe2787c74f4c530475b6d5a0e5718360f129e3415b4aa04f  openlist-runsv-4.2.6-mount-armeabi-v7a.zip
-858a312bdf969c7d1d391b2f54cf3cd2a1449d33afe50f682d4c0a3e3c7ef9ba  openlist-runsv-4.2.6-mount-x86_64.zip
-0ccc527b5f6d8710aee72fd28bb2d2bfe2c681345b188107e131f2b1b844042d  openlist-runsv-4.2.6-mount-x86.zip
+ee4b5d9333c89962a8977832188e9aa67c942b389be4e6573cb00e22aec2b951  openlist-runsv-4.2.6-nomount-arm64-v8a.zip
+44ba90827ed3ae7f15d5177e18a13a13fc57ebd2a97c37bd4783ecd5aeeff56e  openlist-runsv-4.2.6-nomount-armeabi-v7a.zip
+7abe409d155d5e0f5320f3080f7484309dec1ec097e05c533b6cb4106dbf99ad  openlist-runsv-4.2.6-nomount-x86_64.zip
+4179bb3873728c28069f452ff78ba7b780448fef6f1990fe00d5dcebdd79d012  openlist-runsv-4.2.6-nomount-x86.zip
+52888d05ec752fd8672b3f882b207cf03d32481a14bf2016b986ec3a06de5c70  openlist-runsv-4.2.6-mount-arm64-v8a.zip
+e77accf63db6691e38fee5fc3e808aa8314987cca337470e9f5777b82dfda566  openlist-runsv-4.2.6-mount-armeabi-v7a.zip
+694175135110e6a1abd6124a40cb37a29d8c5416682d7f07258f220b1833ef07  openlist-runsv-4.2.6-mount-x86_64.zip
+5d0b2e194523958f55094705692b8ad0694c318f87fefd242a73cd14b29f57e7  openlist-runsv-4.2.6-mount-x86.zip
 ```
