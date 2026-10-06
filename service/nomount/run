@@ -3,19 +3,15 @@
 # The binary lives in ./bin/openlist inside this folder and nothing is mounted
 # to /system. This variant does not drop privileges: it runs as root and keeps
 # its data in ./data next to this script.
+# Settings live in ./conf next to this script.
 # Installed to /data/adb/runsvdir/service/openlist/run on a fresh install.
-# Edit it freely: it is only written again when the service folder is missing.
+# Edit run / conf freely: they are only written again when the installer's
+# "update scripts" option is used.
 exec 2>&1
 
 cd "$(dirname "$0")" || exit 1
 
-# ----------------------- user-editable settings -----------------------
-# Arguments passed to openlist. The data folder is created by openlist itself.
-OPENLIST_ARGS="server --data ./data"
-# Set to 1 to wait until user storage is decrypted before starting.
-# Only meaningful when the data folder lives on /storage/emulated/0/... .
-WAIT_DECRYPT=0
-# ----------------------------------------------------------------------
+. ./conf
 
 if [ "$WAIT_DECRYPT" != "0" ]; then
     echo "openlist(runsv): waiting for user storage decryption..."
@@ -27,4 +23,4 @@ if [ "$WAIT_DECRYPT" != "0" ]; then
     echo "openlist(runsv): storage ready"
 fi
 
-exec ./bin/openlist $OPENLIST_ARGS
+exec ./bin/openlist server --data "$OPENLIST_DATA"

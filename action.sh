@@ -22,6 +22,9 @@ for candidate in "$SVC/bin/openlist" /system/bin/openlist; do
     fi
 done
 
+# Service settings live in ./conf, the same file the run script loads.
+[ -f "$SVC/conf" ] && . "$SVC/conf"
+
 # Module directory: action.sh is executed from inside the module folder, so
 # ${0%/*} resolves to /data/adb/modules/openlist-runsv.
 MODDIR="${0%/*}"
@@ -241,6 +244,7 @@ disable|停用开机自启 (创建 down)
 sv-enable|启动并启用
 sv-disable|停止并停用
 channel|切换更新渠道 (当前: $(channel_label "$ch"))
+password|随机重置密码
 version|查看 OpenList 版本
 quit|结束"
     COUNT="$(menu_count)"
@@ -268,6 +272,15 @@ do_action() {
             else
                 echo "! 切换失败：无法确定当前架构"
                 echo "  (缺少 updateJson 且读不到 build-info.prop)"
+            fi
+            ;;
+        password)
+            if [ -z "$OB_BIN" ]; then
+                echo "! 找不到 openlist 二进制"
+            elif [ -n "$RUN_AS" ] && [ -x /system/bin/chpst ]; then
+                ( cd "$SVC" && /system/bin/chpst -u "$RUN_AS" "$OB_BIN" admin random --data "$OPENLIST_DATA" ) 2>&1
+            else
+                ( cd "$SVC" && "$OB_BIN" admin random --data "$OPENLIST_DATA" ) 2>&1
             fi
             ;;
         version)    if [ -n "$OB_BIN" ]; then "$OB_BIN" version 2>&1; else echo "! 找不到 openlist 二进制"; fi ;;

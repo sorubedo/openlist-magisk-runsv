@@ -21,6 +21,8 @@ The reason for the two variants: `/data/adb` is not readable by normal users, so
 
 Both variants share the same module id, so flashing the other variant over the installed one switches it in place.
 
+The user-editable settings (`RUN_AS`, `OPENLIST_DATA`, `WAIT_DECRYPT`) live in `conf` next to `run`, and `run` loads it.
+
 ## Install
 
 1. Install [runsvdir-magisk](https://github.com/sorubedo/runsvdir-magisk) first, then reboot.
@@ -46,7 +48,7 @@ tail -f /data/adb/runsvdir/log/sv/openlist/current    # logs
 
 ## Update
 
-Flash the newer package over the old one; your data and autostart setting are kept. If you edited `run` / `log/run`, the installer asks with the volume keys: Volume Up updates the binary only, Volume Down also updates the scripts.
+Flash the newer package over the old one; your data and autostart setting are kept. If you edited `run` / `log/run` / `conf`, the installer asks with the volume keys: Volume Up updates the binary only, Volume Down also updates the scripts (`run`, `log/run`, `conf`).
 
 - `nomount`: restart the service afterwards — `sv restart /data/adb/runsvdir/service/openlist`.
 - `mount`: **reboot** afterwards; the new core is mounted from `/system/bin` only after a reboot.
@@ -62,4 +64,5 @@ This removes the whole service folder. For `nomount` that includes `./data`; bac
 - **Installer says runsvdir-magisk is missing**: install runsvdir-magisk, reboot, then flash this module.
 - **Service is not running**: check the log, then `sv status $SVC`.
 - **Cannot reach the web UI**: OpenList listens on `0.0.0.0:5244` by default; the log prints the address and the initial admin password.
-- **Want another data folder**: edit `OPENLIST_ARGS` in the service's `run`, then restart the service.
+- **Forgot the admin password**: use "reset password" in the module action menu; it prints the new one.
+- **Want another data folder**: edit `OPENLIST_DATA` in the service's `conf`, then restart the service.

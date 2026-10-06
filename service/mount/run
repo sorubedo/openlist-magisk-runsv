@@ -4,22 +4,15 @@
 # it stays readable/executable after chpst drops privileges to a normal user.
 # This variant runs as the shell user with the storage groups and keeps its
 # data on shared storage.
+# Settings live in ./conf next to this script.
 # Installed to /data/adb/runsvdir/service/openlist/run on a fresh install.
-# Edit it freely: it is only written again when the service folder is missing.
+# Edit run / conf freely: they are only written again when the installer's
+# "update scripts" option is used.
 exec 2>&1
 
 cd "$(dirname "$0")" || exit 1
 
-# ----------------------- user-editable settings -----------------------
-# Run openlist as this user:group[:group...]. chpst drops privileges
-# (setgroups + setgid + setuid) before executing the binary: the first group is
-# the primary gid, every listed group a supplementary gid.
-RUN_AS="shell:shell:sdcard_r:sdcard_rw:media_rw:external_storage"
-# Arguments passed to openlist. The data folder is created by openlist itself.
-OPENLIST_ARGS="server --data /storage/emulated/0/Android/openlist"
-# Set to 0 to start without waiting for user storage decryption.
-WAIT_DECRYPT=1
-# ----------------------------------------------------------------------
+. ./conf
 
 # chpst is a runit applet; runsvdir-magisk installs it into /system/bin.
 if [ -x /system/bin/chpst ]; then
@@ -38,4 +31,4 @@ if [ "$WAIT_DECRYPT" != "0" ]; then
     echo "openlist(runsv): storage ready"
 fi
 
-exec "$CHPST" -u "$RUN_AS" openlist $OPENLIST_ARGS
+exec "$CHPST" -u "$RUN_AS" openlist server --data "$OPENLIST_DATA"

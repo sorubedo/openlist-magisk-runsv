@@ -1,0 +1,7 @@
+# openlist runsv service settings. Loaded by ./run and by the module action menu.
+
+# Data folder passed to openlist (--data). Created by openlist itself.
+OPENLIST_DATA="./data"
+# Set to 1 to wait until user storage is decrypted before starting.
+# Only meaningful when OPENLIST_DATA lives on /storage/emulated/0/... .
+WAIT_DECRYPT=0

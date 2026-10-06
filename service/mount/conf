@@ -1,0 +1,10 @@
+# openlist runsv service settings. Loaded by ./run and by the module action menu.
+
+# Run openlist as this user:group[:group...]. chpst drops privileges
+# (setgroups + setgid + setuid) before executing the binary: the first group is
+# the primary gid, every listed group a supplementary gid.
+RUN_AS="shell:shell:sdcard_r:sdcard_rw:media_rw:external_storage"
+# Data folder passed to openlist (--data). Created by openlist itself.
+OPENLIST_DATA="/storage/emulated/0/Android/openlist"
+# Set to 0 to start without waiting for user storage decryption.
+WAIT_DECRYPT=1

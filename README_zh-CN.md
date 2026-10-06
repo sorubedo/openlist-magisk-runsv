@@ -21,6 +21,8 @@
 
 两种方式共用一个模块 id，直接刷入另一种即可原地切换安装方式。
 
+用户可改的配置（`RUN_AS`、`OPENLIST_DATA`、`WAIT_DECRYPT`）放在 `run` 旁边的 `conf` 里，由 `run` 加载。
+
 ## 安装
 
 1. 先安装 [runsvdir-magisk](https://github.com/sorubedo/runsvdir-magisk) 并重启手机。
@@ -46,7 +48,7 @@ tail -f /data/adb/runsvdir/log/sv/openlist/current    # 查看日志
 
 ## 更新
 
-覆盖刷入即可，数据和自启设置保留。如果你改过 `run` / `log/run`，安装时会用音量键询问：音量上只更新二进制，音量下同时更新脚本。
+覆盖刷入即可，数据和自启设置保留。如果你改过 `run` / `log/run` / `conf`，安装时会用音量键询问：音量上只更新二进制，音量下同时更新脚本（run、log/run、conf）。
 
 - `nomount`：更新后重启服务即可 —— `sv restart /data/adb/runsvdir/service/openlist`。
 - `mount`：更新后请**重启手机**，新的核心在重启后才会从 `/system/bin` 挂载生效。
@@ -62,4 +64,5 @@ tail -f /data/adb/runsvdir/log/sv/openlist/current    # 查看日志
 - **安装提示缺少 runsvdir-magisk**：先安装 runsvdir-magisk 并重启，再刷本模块。
 - **服务没起来**：先看日志，再执行 `sv status $SVC`。
 - **打不开网页界面**：OpenList 默认监听 `0.0.0.0:5244`，日志里会打印地址和初始密码。
-- **想换数据目录**：编辑服务 `run` 里的 `OPENLIST_ARGS`，然后重启服务。
+- **忘了管理员密码**：用模块操作菜单里的「随机重置密码」，会把新密码打印出来。
+- **想换数据目录**：编辑服务目录 `conf` 里的 `OPENLIST_DATA`，然后重启服务。

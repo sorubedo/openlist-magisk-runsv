@@ -69,8 +69,8 @@ choose_update_mode() {
     ui_print "  检测到已安装，请选择更新方式"
     ui_print "=============================================="
     ui_print "  音量上 : 仅更新 openlist 二进制"
-    ui_print "           （保留你修改过的 run / log/run）"
-    ui_print "  音量下 : 同时更新 run 和 log/run"
+    ui_print "           （保留你修改过的 run / log/run / conf）"
+    ui_print "  音量下 : 同时更新 run / log/run / conf"
     ui_print "  30 秒内未选择则默认仅更新二进制"
     ui_print ""
 
@@ -85,7 +85,7 @@ choose_update_mode() {
                 ;;
             *KEY_VOLUMEDOWN*DOWN*)
                 UPDATE_MODE=scripts
-                ui_print "- 已选择：同时更新 run 和 log/run"
+                ui_print "- 已选择：同时更新 run / log/run / conf"
                 return 0
                 ;;
         esac
@@ -177,7 +177,7 @@ if [ "$UPDATE" -eq 1 ]; then
     if [ "$VARIANT_CHANGED" -eq 1 ]; then
         UPDATE_MODE=scripts
         ui_print "- 检测到安装方式变化: $INSTALLED_VARIANT -> $MODULE_VARIANT"
-        ui_print "- 将自动同步更新 run / log/run 以匹配新的安装方式"
+        ui_print "- 将自动同步更新 run / log/run / conf 以匹配新的安装方式"
     else
         choose_update_mode
     fi
@@ -211,18 +211,22 @@ chown 0:0 "$SVC/.variant" 2>/dev/null
 if [ "$UPDATE" -eq 0 ]; then
     mkdir -p "$SVC/log"
     cp -f "$MODPATH/service/openlist/run" "$SVC/run"
+    cp -f "$MODPATH/service/openlist/conf" "$SVC/conf"
     cp -f "$MODPATH/service/openlist/finish" "$SVC/finish"
     cp -f "$MODPATH/service/openlist/log/run" "$SVC/log/run"
     chmod 0755 "$SVC/run" "$SVC/finish" "$SVC/log/run"
-    chown 0:0 "$SVC/run" "$SVC/finish" "$SVC/log/run" 2>/dev/null
+    chmod 0644 "$SVC/conf"
+    chown 0:0 "$SVC/run" "$SVC/conf" "$SVC/finish" "$SVC/log/run" 2>/dev/null
     # Fresh install is disabled by default: runsv will not autostart it.
     touch "$SVC/down"
 elif [ "$UPDATE_MODE" = "scripts" ]; then
     mkdir -p "$SVC/log"
     cp -f "$MODPATH/service/openlist/run" "$SVC/run"
+    cp -f "$MODPATH/service/openlist/conf" "$SVC/conf"
     cp -f "$MODPATH/service/openlist/log/run" "$SVC/log/run"
     chmod 0755 "$SVC/run" "$SVC/log/run"
-    chown 0:0 "$SVC/run" "$SVC/log/run" 2>/dev/null
+    chmod 0644 "$SVC/conf"
+    chown 0:0 "$SVC/run" "$SVC/conf" "$SVC/log/run" 2>/dev/null
 fi
 
 # Keep $MODPATH/system for the mount variant (it is the payload that gets
@@ -233,15 +237,15 @@ rm -rf "$MODPATH/bin" "$MODPATH/service"
 if [ "$UPDATE" -eq 1 ]; then
     ui_print "=============================================="
     if [ "$UPDATE_MODE" = "scripts" ]; then
-        ui_print "  更新完成：二进制 + run + log/run"
+        ui_print "  更新完成：二进制 + run / log/run / conf"
     else
         ui_print "  更新完成：仅 openlist 二进制"
     fi
     ui_print "=============================================="
     if [ "$UPDATE_MODE" = "scripts" ]; then
-        ui_print "  run 和 log/run 已更新"
+        ui_print "  run / log/run / conf 已更新"
     else
-        ui_print "  现有 run / log/run 保持不变"
+        ui_print "  现有 run / log/run / conf 保持不变"
     fi
     ui_print ""
     if [ "$MODULE_VARIANT" = "mount" ]; then
@@ -257,6 +261,7 @@ else
     ui_print "=============================================="
     ui_print "  服务目录: $SVC"
     ui_print "  启动脚本: $SVC/run      (按需修改)"
+    ui_print "  服务配置: $SVC/conf     (按需修改)"
     if [ "$MODULE_VARIANT" = "mount" ]; then
         ui_print "  核心二进制: /system/bin/openlist (挂载, 重启后生效)"
         ui_print "  数据目录: $MOUNT_DATA"
