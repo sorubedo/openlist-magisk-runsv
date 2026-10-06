@@ -1,0 +1,2 @@
+#!/system/bin/sh
+# Runs every time the openlist service exits. Add cleanup here if needed.

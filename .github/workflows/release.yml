@@ -1,0 +1,79 @@
+name: Build and Release
+
+# Publishes a module release whenever upstream OpenList has a new build, and
+# regenerates the update metadata that the module update checkers read.
+#
+#   schedule  -> daily, publishes whichever channel has a new upstream build
+#   dispatch  -> manual, optionally limited to one channel and/or forced
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "Channel to publish"
+        required: true
+        default: auto
+        type: choice
+        options:
+          - auto
+          - stable
+          - prerelease
+      force:
+        description: "Republish even if the release is already current"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+# Serialize runs so the update-metadata commit never races itself.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Plan channels
+        id: plan
+        env:
+          CHANNEL_INPUT: ${{ github.event.inputs.channel || 'auto' }}
+          FORCE: ${{ github.event.inputs.force || 'false' }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash plan-release.sh
+
+      - name: Build and publish
+        if: steps.plan.outputs.channels != ''
+        env:
+          CHANNELS: ${{ steps.plan.outputs.channels }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for channel in $CHANNELS; do
+            bash release-channel.sh "$channel"
+          done
+
+      - name: Validate update metadata
+        if: steps.plan.outputs.channels != ''
+        run: |
+          for f in $(find update -name '*.json' | sort); do
+            jq -e 'has("version") and has("versionCode") and has("zipUrl") and has("changelog")' "$f" >/dev/null
+            echo "ok: $f"
+          done
+
+      - name: Commit update metadata
+        if: steps.plan.outputs.channels != ''
+        run: |
+          if [ -z "$(git status --porcelain update)" ]; then
+            echo "=> update metadata unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add update
+          git commit -m "chore(update): ${{ steps.plan.outputs.channels }}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

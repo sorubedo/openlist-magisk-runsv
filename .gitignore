@@ -1,0 +1,6 @@
+*.zip
+*.zip.*
+*.tar.gz
+*.tgz
+bin/
+out/

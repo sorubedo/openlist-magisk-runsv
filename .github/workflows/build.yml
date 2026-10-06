@@ -1,0 +1,104 @@
+name: Build
+
+# Manual, release-less build. Produces the per-ABI ZIPs as workflow artifacts
+# without touching GitHub releases or the update metadata. The scheduled
+# build + release lives in release.yml.
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "OpenList channel"
+        required: true
+        default: auto
+        type: choice
+        options:
+          - auto
+          - stable
+          - prerelease
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch OpenList binaries
+        id: upstream
+        env:
+          CHANNEL: ${{ github.event.inputs.channel }}
+        run: bash fetch.sh "${CHANNEL:-auto}"
+
+      - name: Read upstream version
+        id: prep
+        run: |
+          set -a; . out/upstream-versions.env; set +a
+          echo "version=$OPENLIST_VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=$OPENLIST_TAG" >> "$GITHUB_OUTPUT"
+          echo "channel=$MODULE_CHANNEL" >> "$GITHUB_OUTPUT"
+
+      - name: Package per ABI
+        run: bash package.sh
+
+      - name: Write build summary
+        env:
+          OPENLIST_TAG: ${{ steps.prep.outputs.tag }}
+          MODULE_VERSION: ${{ steps.prep.outputs.version }}
+          MODULE_CHANNEL: ${{ steps.prep.outputs.channel }}
+        run: |
+          {
+            echo "## openlist-runsv build"
+            echo
+            echo "- Channel: $MODULE_CHANNEL"
+            echo "- Module version: $MODULE_VERSION"
+            echo "- OpenList upstream: $OPENLIST_TAG"
+            echo "- Variants: nomount, mount"
+            echo "- Packages: arm64-v8a, armeabi-v7a, x86_64, x86 (per variant)"
+            echo
+            echo '```text'
+            cat out/SHA256SUMS
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload arm64-v8a artifacts (both variants)
+        uses: actions/upload-artifact@v4
+        with:
+          name: openlist-runsv-${{ steps.prep.outputs.version }}-arm64-v8a
+          path: |
+            out/openlist-runsv-${{ steps.prep.outputs.version }}-nomount-arm64-v8a.zip
+            out/openlist-runsv-${{ steps.prep.outputs.version }}-mount-arm64-v8a.zip
+            out/SHA256SUMS
+            out/upstream-versions.env
+          if-no-files-found: error
+
+      - name: Upload armeabi-v7a artifacts (both variants)
+        uses: actions/upload-artifact@v4
+        with:
+          name: openlist-runsv-${{ steps.prep.outputs.version }}-armeabi-v7a
+          path: |
+            out/openlist-runsv-${{ steps.prep.outputs.version }}-nomount-armeabi-v7a.zip
+            out/openlist-runsv-${{ steps.prep.outputs.version }}-mount-armeabi-v7a.zip
+            out/SHA256SUMS
+            out/upstream-versions.env
+          if-no-files-found: error
+
+      - name: Upload x86_64 artifacts (both variants)
+        uses: actions/upload-artifact@v4
+        with:
+          name: openlist-runsv-${{ steps.prep.outputs.version }}-x86_64
+          path: |
+            out/openlist-runsv-${{ steps.prep.outputs.version }}-nomount-x86_64.zip
+            out/openlist-runsv-${{ steps.prep.outputs.version }}-mount-x86_64.zip
+            out/SHA256SUMS
+            out/upstream-versions.env
+          if-no-files-found: error
+
+      - name: Upload x86 artifacts (both variants)
+        uses: actions/upload-artifact@v4
+        with:
+          name: openlist-runsv-${{ steps.prep.outputs.version }}-x86
+          path: |
+            out/openlist-runsv-${{ steps.prep.outputs.version }}-nomount-x86.zip
+            out/openlist-runsv-${{ steps.prep.outputs.version }}-mount-x86.zip
+            out/SHA256SUMS
+            out/upstream-versions.env
+          if-no-files-found: error

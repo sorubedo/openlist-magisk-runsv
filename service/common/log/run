@@ -1,0 +1,9 @@
+#!/system/bin/sh
+# openlist runsv log subservice. No "down" file is needed for the log service.
+
+LOG_DIR=/data/adb/runsvdir/log/sv/openlist
+
+mkdir -p "$LOG_DIR"
+find "$LOG_DIR" -maxdepth 1 -type f -name '*.u' -delete
+
+exec svlogd -tt "$LOG_DIR"

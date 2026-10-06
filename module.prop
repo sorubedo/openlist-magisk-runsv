@@ -1,0 +1,6 @@
+id=openlist-runsv
+name=openlist (runsv, no-mount)
+version=4.2.6
+versionCode=260901014
+author=sorubedo(github)
+description=OpenList as a runsv service for runsvdir-magisk. Tracks upstream OpenList. Default (no-mount) build keeps the core in the service folder and stores data in ./data; flash the mount build to ship the core at /system/bin/openlist and drop to the shell user on shared storage.
