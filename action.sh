@@ -302,13 +302,13 @@ print_frame() {
     echo "当前状态:"
     "$SV" status "$SVC" 2>&1 | while IFS= read -r l; do echo "  $l"; done
     echo ""
-    if [ -n "$RESULT" ]; then
-        echo "上次操作: $RESULT_TITLE"
-        printf '%s\n' "$RESULT" | tail -n 12 | while IFS= read -r l; do echo "  $l"; done
-        echo ""
-    fi
     menu_render "$sel"
     echo ""
+    if [ -n "$RESULT" ]; then
+        echo "上次操作: $RESULT_TITLE"
+        printf '%s\n' "$RESULT" | while IFS= read -r l; do echo "  $l"; done
+        echo ""
+    fi
     echo "【音量下 = 切换选项】  【音量上 = 执行选中项】"
     echo ""
 }
@@ -334,6 +334,7 @@ while :; do
     label="${line#*|}"
 
     if [ "$name" = "quit" ]; then
+        sleep 0.3
         break
     fi
 
