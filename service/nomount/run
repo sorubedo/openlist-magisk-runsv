@@ -5,8 +5,8 @@
 # its data in ./data next to this script.
 # Settings live in ./conf next to this script.
 # Installed to /data/adb/runsvdir/service/openlist/run on a fresh install.
-# Edit run / conf freely: they are only written again when the installer's
-# "update scripts" option is used.
+# Edit run / conf freely: they are only overwritten when the installer's
+# "完整更新" (full update) option is used.
 exec 2>&1
 
 cd "$(dirname "$0")" || exit 1

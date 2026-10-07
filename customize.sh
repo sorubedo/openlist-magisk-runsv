@@ -9,7 +9,9 @@
 #      mount   : core binary is shipped in system/bin and mounted by the
 #                manager at /system/bin/openlist; runs as the shell user with
 #                storage groups, data folder is Android/openlist on /storage
-#  * never overwrites an existing service definition on a plain update
+#  * the packaged service/openlist tree is merged over the installed service
+#    folder, so run / conf / log/run / the binary / an optional down file all
+#    update together; user data (./data, extra files) is never deleted
 #
 
 SVDIR=/data/adb/runsvdir/service
@@ -69,8 +71,9 @@ choose_update_mode() {
     ui_print "  检测到已安装，请选择更新方式"
     ui_print "=============================================="
     ui_print "  音量上 : 仅更新 openlist 二进制"
-    ui_print "           （保留你修改过的 run / log/run / conf）"
-    ui_print "  音量下 : 同时更新 run / log/run / conf"
+    ui_print "           （保留你修改过的 run / conf / log/run）"
+    ui_print "  音量下 : 完整更新"
+    ui_print "           （按安装包的 service 目录覆盖 run / conf / log/run / 二进制）"
     ui_print "  30 秒内未选择则默认仅更新二进制"
     ui_print ""
 
@@ -80,12 +83,12 @@ choose_update_mode() {
         case "$ev" in
             *KEY_VOLUMEUP*DOWN*)
                 UPDATE_MODE=binary
-                ui_print "- 已选择：仅更新二进制"
+                ui_print "- 已选择：仅更新 openlist 二进制"
                 return 0
                 ;;
             *KEY_VOLUMEDOWN*DOWN*)
-                UPDATE_MODE=scripts
-                ui_print "- 已选择：同时更新 run / log/run / conf"
+                UPDATE_MODE=full
+                ui_print "- 已选择：完整更新"
                 return 0
                 ;;
         esac
@@ -121,10 +124,17 @@ esac
 
 if [ "$MODULE_VARIANT" = "mount" ]; then
     BIN_SRC="$MODPATH/system/bin/openlist"
-    VARIANT_LABEL="mount -> /system/bin/openlist"
+    VARIANT_LABEL="mount"
 else
-    BIN_SRC="$MODPATH/bin/$ABI/openlist"
-    VARIANT_LABEL="nomount -> 服务目录 bin/openlist"
+    BIN_SRC="$MODPATH/service/openlist/bin/openlist"
+    VARIANT_LABEL="nomount"
+fi
+
+# The package only carries one ABI's binary, so check it against the device.
+TARGET_ABI="$(sed -n 's/^targetAbi=//p' "$MODPATH/build-info.prop" 2>/dev/null | head -n 1)"
+if [ -n "$TARGET_ABI" ] && [ "$TARGET_ABI" != "$ABI" ]; then
+    ui_print "! 安装包架构: $TARGET_ABI，本机架构: $ABI"
+    abort "! Please download the $ABI build for this device"
 fi
 
 if [ ! -f "$BIN_SRC" ]; then
@@ -175,31 +185,56 @@ fi
 
 if [ "$UPDATE" -eq 1 ]; then
     if [ "$VARIANT_CHANGED" -eq 1 ]; then
-        UPDATE_MODE=scripts
+        UPDATE_MODE=full
         ui_print "- 检测到安装方式变化: $INSTALLED_VARIANT -> $MODULE_VARIANT"
-        ui_print "- 将自动同步更新 run / log/run / conf 以匹配新的安装方式"
+        ui_print "- 将执行完整更新以匹配新的安装方式"
     else
         choose_update_mode
     fi
 fi
 
-# --- install / update the binary --------------------------------------
+# --- install / update the service -------------------------------------
+# The packaged service/openlist folder is the single source of truth: it is
+# merged over the installed service folder, so run / conf / finish / log/run /
+# the nomount binary and an optional down file all refresh in one go. The copy
+# only writes names that the package ships, so anything that lives only in the
+# installed folder (./data, files you dropped in) is left untouched.
+
+# overlay_copy <src_dir> <dst_dir>
+# Merge src over dst. Regular files are written under a temp name and renamed
+# into place, so a running binary is replaced atomically (no "text file busy")
+# and directories are merged rather than replaced.
+overlay_copy() {
+    local oc_src="$1" oc_dst="$2" oc_entry oc_name oc_tmp
+    mkdir -p "$oc_dst" || return 1
+    for oc_entry in "$oc_src"/* "$oc_src"/.[!.]* "$oc_src"/..?*; do
+        [ -e "$oc_entry" ] || continue
+        oc_name="${oc_entry##*/}"
+        if [ -d "$oc_entry" ]; then
+            overlay_copy "$oc_entry" "$oc_dst/$oc_name" || return 1
+        elif [ -f "$oc_entry" ]; then
+            oc_tmp="$oc_dst/.$oc_name.install"
+            cp -f "$oc_entry" "$oc_tmp" 2>/dev/null || { rm -f "$oc_tmp"; return 1; }
+            mv -f "$oc_tmp" "$oc_dst/$oc_name" 2>/dev/null || { rm -f "$oc_tmp"; return 1; }
+        fi
+    done
+    return 0
+}
+
 mkdir -p "$SVC"
+
+# The autostart flag (./down) reflects the user's choice, not package data.
+# Remember its current state so an update can keep it.
+DOWNFILE="$SVC/down"
+HAD_DOWN=0
+[ "$UPDATE" -eq 1 ] && [ -e "$DOWNFILE" ] && HAD_DOWN=1
+
+# The mount binary is the module's system payload; drop any stale copy left in
+# the service folder by an earlier nomount install.
 if [ "$MODULE_VARIANT" = "mount" ]; then
-    # The binary is the module's system payload; the manager mounts it at
-    # /system/bin/openlist (effective after reboot). Drop any stale copy left
-    # behind by a previous nomount install.
     chmod 0755 "$MODPATH/system/bin/openlist" 2>/dev/null
     rm -f "$SVC/bin/openlist"
     rmdir "$SVC/bin" 2>/dev/null
-else
-    # Copy to a temp name and rename, so a running service keeps its old inode
-    # and the new binary takes effect on the next "sv restart".
-    mkdir -p "$SVC/bin"
-    cp -f "$MODPATH/bin/$ABI/openlist" "$SVC/bin/.openlist.new"
-    chmod 0755 "$SVC/bin/.openlist.new"
-    chown 0:0 "$SVC/bin/.openlist.new" 2>/dev/null
-    mv -f "$SVC/bin/.openlist.new" "$SVC/bin/openlist"
 fi
 
 # Remember the variant so a later flash can detect a switch.
@@ -207,43 +242,43 @@ printf '%s\n' "$MODULE_VARIANT" > "$SVC/.variant"
 chmod 0644 "$SVC/.variant" 2>/dev/null
 chown 0:0 "$SVC/.variant" 2>/dev/null
 
-# --- fresh install: create the service definition ---------------------
-if [ "$UPDATE" -eq 0 ]; then
-    mkdir -p "$SVC/log"
-    cp -f "$MODPATH/service/openlist/run" "$SVC/run"
-    cp -f "$MODPATH/service/openlist/conf" "$SVC/conf"
-    cp -f "$MODPATH/service/openlist/finish" "$SVC/finish"
-    cp -f "$MODPATH/service/openlist/log/run" "$SVC/log/run"
-    chmod 0755 "$SVC/run" "$SVC/finish" "$SVC/log/run"
-    chmod 0644 "$SVC/conf"
-    chown 0:0 "$SVC/run" "$SVC/conf" "$SVC/finish" "$SVC/log/run" 2>/dev/null
-    # Fresh install is disabled by default: runsv will not autostart it.
-    touch "$SVC/down"
-elif [ "$UPDATE_MODE" = "scripts" ]; then
-    mkdir -p "$SVC/log"
-    cp -f "$MODPATH/service/openlist/run" "$SVC/run"
-    cp -f "$MODPATH/service/openlist/conf" "$SVC/conf"
-    cp -f "$MODPATH/service/openlist/log/run" "$SVC/log/run"
-    chmod 0755 "$SVC/run" "$SVC/log/run"
-    chmod 0644 "$SVC/conf"
-    chown 0:0 "$SVC/run" "$SVC/conf" "$SVC/log/run" 2>/dev/null
+if [ "$UPDATE" -eq 0 ] || [ "$UPDATE_MODE" = "full" ]; then
+    # Fresh install or full update: merge the whole packaged service tree.
+    overlay_copy "$MODPATH/service/openlist" "$SVC"
+elif [ "$MODULE_VARIANT" = "nomount" ]; then
+    # Binary-only update: refresh just the nomount binary.
+    overlay_copy "$MODPATH/service/openlist/bin" "$SVC/bin"
 fi
 
+# A fresh install (or a custom package shipping no down file) starts enabled;
+# an update keeps whatever autostart state the user already had.
+if [ "$UPDATE" -eq 1 ] && [ "$HAD_DOWN" -eq 0 ]; then
+    rm -f "$DOWNFILE"
+fi
+
+# Extraction can drop the executable bit, so set the well-known service files
+# explicitly. Extra files shipped by a custom package keep their own modes.
+chmod 0755 "$SVC/run" "$SVC/finish" "$SVC/log/run" 2>/dev/null
+chmod 0644 "$SVC/conf" 2>/dev/null
+if [ -f "$SVC/bin/openlist" ]; then chmod 0755 "$SVC/bin/openlist"; fi
+chown 0:0 "$SVC/run" "$SVC/conf" "$SVC/finish" "$SVC/log/run" 2>/dev/null
+
 # Keep $MODPATH/system for the mount variant (it is the payload that gets
-# mounted); remove the nomount staging dirs and the installer-only service tree.
+# mounted); remove the installer-only staging and service trees.
 rm -rf "$MODPATH/bin" "$MODPATH/service"
 
 # --- messages ---------------------------------------------------------
 if [ "$UPDATE" -eq 1 ]; then
     ui_print "=============================================="
-    if [ "$UPDATE_MODE" = "scripts" ]; then
-        ui_print "  更新完成：二进制 + run / log/run / conf"
+    if [ "$UPDATE_MODE" = "full" ]; then
+        ui_print "  更新完成：完整更新"
     else
         ui_print "  更新完成：仅 openlist 二进制"
     fi
     ui_print "=============================================="
-    if [ "$UPDATE_MODE" = "scripts" ]; then
-        ui_print "  run / log/run / conf 已更新"
+    if [ "$UPDATE_MODE" = "full" ]; then
+        ui_print "  run / conf / log/run / 二进制 已按安装包更新"
+        ui_print "  服务目录里的数据文件未被改动"
     else
         ui_print "  现有 run / log/run / conf 保持不变"
     fi

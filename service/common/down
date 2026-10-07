@@ -1,0 +1,4 @@
+# Marker file: its presence in the service folder keeps runsv from autostarting
+# openlist on boot. It is shipped so a fresh install starts disabled (as
+# before). Delete this file from your build to have the service start
+# automatically right after installation.

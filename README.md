@@ -48,7 +48,7 @@ tail -f /data/adb/runsvdir/log/sv/openlist/current    # logs
 
 ## Update
 
-Flash the newer package over the old one; your data and autostart setting are kept. If you edited `run` / `log/run` / `conf`, the installer asks with the volume keys: Volume Up updates the binary only, Volume Down also updates the scripts (`run`, `log/run`, `conf`).
+Flash the newer package over the old one; your data and autostart setting are kept. If you edited `run` / `conf` / `log/run`, the installer asks with the volume keys: Volume Up updates the binary only, Volume Down does a full update (merges the package's `service/openlist` tree over the service folder, refreshing `run` / `conf` / `log/run` / the binary). Files that only exist in the service folder are never deleted.
 
 - `nomount`: restart the service afterwards — `sv restart /data/adb/runsvdir/service/openlist`.
 - `mount`: **reboot** afterwards; the new core is mounted from `/system/bin` only after a reboot.

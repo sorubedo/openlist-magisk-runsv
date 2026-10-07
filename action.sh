@@ -113,8 +113,8 @@ channel_label() {
 
 variant_label() {
     case "$1" in
-        nomount) echo "nomount (服务目录)" ;;
-        mount) echo "mount (/system/bin/openlist)" ;;
+        nomount) echo "nomount" ;;
+        mount) echo "mount" ;;
         *) echo "未知" ;;
     esac
 }
@@ -304,13 +304,13 @@ print_frame() {
     echo ""
     menu_render "$sel"
     echo ""
+    echo "【音量下 = 切换选项】  【音量上 = 执行选中项】"
+    echo ""
     if [ -n "$RESULT" ]; then
         echo "上次操作: $RESULT_TITLE"
         printf '%s\n' "$RESULT" | while IFS= read -r l; do echo "  $l"; done
         echo ""
     fi
-    echo "【音量下 = 切换选项】  【音量上 = 执行选中项】"
-    echo ""
 }
 
 sel=1
