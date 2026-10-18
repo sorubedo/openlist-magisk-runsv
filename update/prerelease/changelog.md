@@ -38,12 +38,12 @@ Requires [runsvdir-magisk](https://github.com/sorubedo/runsvdir-magisk) to be in
 ## SHA-256
 
 ```text
-292aabfcc04b09b457ab4dbb76019eca2d8b432b7e66871f286dfdab4c95231a  openlist-runsv-4.2.7-beta.20261015-nomount-arm64-v8a.zip
-fe9916b4e788734cdcb29d91a818c238374ac4fb09298e9717ca662f33106b51  openlist-runsv-4.2.7-beta.20261015-nomount-armeabi-v7a.zip
-6a09cb6ebf28ecfe7efe67b3ba12008f2d4eff2b3f575917965dddc60f5b0de2  openlist-runsv-4.2.7-beta.20261015-nomount-x86_64.zip
-6cfa89c317f80a57c11a20a79b99f145f30333c200d342afe096ae6304f5134e  openlist-runsv-4.2.7-beta.20261015-nomount-x86.zip
-03bbba79547ba5092fdbb28043aef372c4aaa6571135e48b2d00d2afadd3ec7d  openlist-runsv-4.2.7-beta.20261015-mount-arm64-v8a.zip
-abd1140f0ee62bd472eccb023eb56166df58fb1232aeeae50fbc54a273d9dfa5  openlist-runsv-4.2.7-beta.20261015-mount-armeabi-v7a.zip
-02641610a4cce213799e67bce939970243aa9bd9e2d2385db960abad857cc57f  openlist-runsv-4.2.7-beta.20261015-mount-x86_64.zip
-037b19504fbfe859f87fd156c1979db7caefe6699b00bc0beb73feec2d566902  openlist-runsv-4.2.7-beta.20261015-mount-x86.zip
+dc832b3ccbada1c30f538c10a5e1c695d54e17abc5b2d36da859d6edc224d20f  openlist-runsv-4.2.7-beta.20261015-nomount-arm64-v8a.zip
+292c2afd81b7c89cf77a8f5a78e70c8962b817596eee24796448925fb351c871  openlist-runsv-4.2.7-beta.20261015-nomount-armeabi-v7a.zip
+3fa48b77a21edc678bd398b488cc15a0578abf864a9786a7f89523bafa16b0b2  openlist-runsv-4.2.7-beta.20261015-nomount-x86_64.zip
+470a4fc8b0ca577ac66f9f302492c7151dc53645c046eefb4a97e75c34272f0f  openlist-runsv-4.2.7-beta.20261015-nomount-x86.zip
+4f38d678b1f43c6583dc77a488cfac7096747f2beaa0678e46a657c404b70f77  openlist-runsv-4.2.7-beta.20261015-mount-arm64-v8a.zip
+611ff7fdf197f9166fb70b185b3a86f2218251afb76215d26dc55c169c68bb7d  openlist-runsv-4.2.7-beta.20261015-mount-armeabi-v7a.zip
+d4a8c5ef57fa1917ec2fb0a728f8a99b34577cceb81297645c5accf78aa8b69e  openlist-runsv-4.2.7-beta.20261015-mount-x86_64.zip
+2818a6b33f99385292cf7463e69884fc094757fa6bfb8023f79eb220538eb333  openlist-runsv-4.2.7-beta.20261015-mount-x86.zip
 ```
