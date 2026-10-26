@@ -1,6 +1,6 @@
 {
-  "version": "4.2.8",
-  "versionCode": 261024009,
-  "zipUrl": "https://github.com/sorubedo/openlist-magisk-runsv/releases/download/v4.2.8/openlist-runsv-4.2.8-mount-x86.zip",
+  "version": "4.2.9",
+  "versionCode": 261024015,
+  "zipUrl": "https://github.com/sorubedo/openlist-magisk-runsv/releases/download/v4.2.9/openlist-runsv-4.2.9-mount-x86.zip",
   "changelog": "https://raw.githubusercontent.com/sorubedo/openlist-magisk-runsv/main/update/stable/changelog.md"
 }
