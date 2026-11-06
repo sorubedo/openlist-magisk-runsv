@@ -1,6 +1,6 @@
 {
-  "version": "4.2.10-beta.20261104",
-  "versionCode": 261104005,
-  "zipUrl": "https://github.com/sorubedo/openlist-magisk-runsv/releases/download/beta/openlist-runsv-4.2.10-beta.20261104-nomount-armeabi-v7a.zip",
+  "version": "4.2.10-beta.20261106",
+  "versionCode": 261106004,
+  "zipUrl": "https://github.com/sorubedo/openlist-magisk-runsv/releases/download/beta/openlist-runsv-4.2.10-beta.20261106-nomount-armeabi-v7a.zip",
   "changelog": "https://raw.githubusercontent.com/sorubedo/openlist-magisk-runsv/main/update/prerelease/changelog.md"
 }
