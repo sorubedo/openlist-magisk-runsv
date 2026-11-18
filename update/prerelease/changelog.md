@@ -4,9 +4,9 @@
 | --- | --- |
 | Module | openlist-runsv |
 | Channel | prerelease |
-| Module version | 4.2.10-beta.20261116 |
+| Module version | 4.2.10-beta.20261117 |
 | OpenList upstream | [beta](https://github.com/OpenListTeam/OpenList/releases/tag/beta) |
-| Upstream build time | 2026-11-16T10:34:33Z |
+| Upstream build time | 2026-11-17T09:41:04Z |
 
 The module version and versionCode are derived from the upstream OpenList release.
 The pre-release is published under the upstream rolling `beta` tag, so the asset
@@ -38,12 +38,12 @@ Requires [runsvdir-magisk](https://github.com/sorubedo/runsvdir-magisk) to be in
 ## SHA-256
 
 ```text
-0f6d91fecaaec8edb22a54b7f231b94c6aed403651a7af41cccb4d2d28d2c3cb  openlist-runsv-4.2.10-beta.20261116-nomount-arm64-v8a.zip
-f7e95b68ff34bdbebf44abfd5cf09a6c084f757a0cb2eb7e2dbc22de12a74d64  openlist-runsv-4.2.10-beta.20261116-nomount-armeabi-v7a.zip
-84f28c6af41e689a6de5575c74403a517010f23229ad6a547ecc540b03a4e34b  openlist-runsv-4.2.10-beta.20261116-nomount-x86_64.zip
-b25e4f6083485d81e9454af25ec4a3f2c1ef08b6ca4b83d8e8953fd9fde99bd7  openlist-runsv-4.2.10-beta.20261116-nomount-x86.zip
-5ebc69809a04fe260283d386d6f5c14137e127f6190e2adf635395a1253a080b  openlist-runsv-4.2.10-beta.20261116-mount-arm64-v8a.zip
-96ff3b97968f5363e4a76c1794c0a3ddb6d7d026edfd0d379eb0781354f3f3c6  openlist-runsv-4.2.10-beta.20261116-mount-armeabi-v7a.zip
-682765b67a56ae298ddf0fbf80537ab6ac5804739c0ab6d72f7656131619294b  openlist-runsv-4.2.10-beta.20261116-mount-x86_64.zip
-d9894cd6379b6aa29a0a1d1f6631ab9375eb46f0f6cd7cff443e64d79ffa9a20  openlist-runsv-4.2.10-beta.20261116-mount-x86.zip
+cbcc288ed88b874e09996bb3ba6050a74758d83cbadeec310dd5e3eb9e82e02c  openlist-runsv-4.2.10-beta.20261117-nomount-arm64-v8a.zip
+282772fb3cee9ead1f13c9b8e83c6cc6a72cde4a5fb22c13033a3b6f651a8ca5  openlist-runsv-4.2.10-beta.20261117-nomount-armeabi-v7a.zip
+e8ced5fe20e50e92154831d702f092d561af596a35a4744837077b31a6689895  openlist-runsv-4.2.10-beta.20261117-nomount-x86_64.zip
+ae62ad6bf73980f7d39de81d6c2f5b368697a5fb8e3c307bda88d24358c6e6b8  openlist-runsv-4.2.10-beta.20261117-nomount-x86.zip
+3a3939f2b91f1a00bfcb5e5bb88d9efe5b8a3cf9ef30e2069e215f9dcd904435  openlist-runsv-4.2.10-beta.20261117-mount-arm64-v8a.zip
+55be3955e0b4a99fd890a1e005720199de4a735146f23713f0414de84e09d34a  openlist-runsv-4.2.10-beta.20261117-mount-armeabi-v7a.zip
+eff54b7242b9ae662666dd098ee1c189526fa190592fce7350e0b69b400fea79  openlist-runsv-4.2.10-beta.20261117-mount-x86_64.zip
+dd19cacd17f1cb1e8d5471ffdf430ada05850431151283bf95bd7a504c10e625  openlist-runsv-4.2.10-beta.20261117-mount-x86.zip
 ```
