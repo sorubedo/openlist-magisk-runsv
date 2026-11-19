@@ -4,9 +4,9 @@
 | --- | --- |
 | Module | openlist-runsv |
 | Channel | stable |
-| Module version | 4.2.9 |
-| OpenList upstream | [v4.2.9](https://github.com/OpenListTeam/OpenList/releases/tag/v4.2.9) |
-| Upstream build time | 2026-10-24T15:58:43Z |
+| Module version | 4.2.10 |
+| OpenList upstream | [v4.2.10](https://github.com/OpenListTeam/OpenList/releases/tag/v4.2.10) |
+| Upstream build time | 2026-11-17T12:24:15Z |
 
 The module version and versionCode are derived from the upstream OpenList release.
 
@@ -36,12 +36,12 @@ Requires [runsvdir-magisk](https://github.com/sorubedo/runsvdir-magisk) to be in
 ## SHA-256
 
 ```text
-cad17b9dafdd008df2eabbb04426c549e833cd3b629827cd9f408a1d0f915446  openlist-runsv-4.2.9-nomount-arm64-v8a.zip
-a84b2f7ac0774f3af45e4c7e903331ad34ad11d241f3561bbc81c03284926e96  openlist-runsv-4.2.9-nomount-armeabi-v7a.zip
-a60802b9a4ac896d7cb14d50fa717179a9f9c4cfa41a21b157c6c2be343875e6  openlist-runsv-4.2.9-nomount-x86_64.zip
-0a82d20aebf1544e17aef0d217640b61a972d5597525db094a7b169baff28963  openlist-runsv-4.2.9-nomount-x86.zip
-f85968e08339ad42ca72d68af809b90e1def5150adcf2091c456b4e4f72fc22f  openlist-runsv-4.2.9-mount-arm64-v8a.zip
-7efa629421095e81c76a468811e47be8c9dd3fe59cccb535754654d20529d064  openlist-runsv-4.2.9-mount-armeabi-v7a.zip
-3cdb2be8959396f50662074eabacdd93d6c2e1f3b05bb904454cdb608ed3474f  openlist-runsv-4.2.9-mount-x86_64.zip
-7fc002d95f0401d755ae71f2b030e43701890537a2e3c72cee036536c6f77cbb  openlist-runsv-4.2.9-mount-x86.zip
+322cfcf4fb27c2282a8b8baaabde09cddb5ac7bade25e95b4e40c3ba82eddb3a  openlist-runsv-4.2.10-nomount-arm64-v8a.zip
+6c8c74b4e1bacd02c698d25db58e393378d27d9b00aaf7a5987e68069fb9373e  openlist-runsv-4.2.10-nomount-armeabi-v7a.zip
+8c6d90f0a8ee27b9cfe103939c4334d12c9f52ff82181eec0b0648884ab4715b  openlist-runsv-4.2.10-nomount-x86_64.zip
+e674bfb060f0a1b4f2c5a0f32284777baadf5131c70ef0b41910d2e4b213c58a  openlist-runsv-4.2.10-nomount-x86.zip
+a18ac76a0ef921c5574a47cf0c55b461b6160a0a57c76becc2605fa1f07e2212  openlist-runsv-4.2.10-mount-arm64-v8a.zip
+82aefb49998d0b04dec0c7726f438091363778e13a928d7eeb5f6ce8a3c80df4  openlist-runsv-4.2.10-mount-armeabi-v7a.zip
+6110bae5550048968ee23cdfd5ca98fb19f1ebf042754874c2e50da3329953ab  openlist-runsv-4.2.10-mount-x86_64.zip
+259b302169c5c0e37999cece3421620b191e78f1fba94c5af1904f5621a3e851  openlist-runsv-4.2.10-mount-x86.zip
 ```
