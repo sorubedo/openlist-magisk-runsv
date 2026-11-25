@@ -38,12 +38,12 @@ Requires [runsvdir-magisk](https://github.com/sorubedo/runsvdir-magisk) to be in
 ## SHA-256
 
 ```text
-9ad32baa9484012dd9f6dc17614f7c7fbabb24a8c824f0fe08eb6eb36aea3e71  openlist-runsv-4.2.11-beta.20261124-nomount-arm64-v8a.zip
-4fa6d573f239a5f6d607bac85b128bf9f29d51a746afb5b3ff5e4e424a6a60a0  openlist-runsv-4.2.11-beta.20261124-nomount-armeabi-v7a.zip
-038d6ce60026e6901671f63b62815e4544b56694117f0a36c612dc01abb94051  openlist-runsv-4.2.11-beta.20261124-nomount-x86_64.zip
-71a57b7f7183a83b53c889eb89f3bcee8f985b57e9870c3e2ba44fb133c34733  openlist-runsv-4.2.11-beta.20261124-nomount-x86.zip
-675ee976b2b4f010f197bdc741ea18a405d9f2c8f41b073e202cc64b8dc1c917  openlist-runsv-4.2.11-beta.20261124-mount-arm64-v8a.zip
-a126d01cdb9925cbb7711a1be697dd6a004ec67d3d1b3b67124a500c2e681470  openlist-runsv-4.2.11-beta.20261124-mount-armeabi-v7a.zip
-9f203a3e60537e3d4a3456f709af2ba90e8d03f8b7a0436fcf79154f1844428f  openlist-runsv-4.2.11-beta.20261124-mount-x86_64.zip
-ed51a1fe71a540429967968b0d423e738d0d35c940c3ee74e4c131f1d2690290  openlist-runsv-4.2.11-beta.20261124-mount-x86.zip
+c3a23084f5b96a9e5faab410443afdd07e18e54041147dc4bb7c75949dbe142a  openlist-runsv-4.2.11-beta.20261124-nomount-arm64-v8a.zip
+b65aaf4bdb725ace96a3ae1d182bd085051a20934026fc75e7bbb66c8267ccf3  openlist-runsv-4.2.11-beta.20261124-nomount-armeabi-v7a.zip
+e84132ef119d8b2d030117115f5bb2d3f632f72e0b148d7d447e2185e020f3e7  openlist-runsv-4.2.11-beta.20261124-nomount-x86_64.zip
+6cbd6b98f5859173b1fae59c6526edba0c33d86796d57ddd2d7ea3c44e87ab16  openlist-runsv-4.2.11-beta.20261124-nomount-x86.zip
+8489fb94e8d4727c470576e60584a3ee905c9af76a946a470881bc139dcc91ec  openlist-runsv-4.2.11-beta.20261124-mount-arm64-v8a.zip
+0e9a56ea750ffc489ad070a3827c74060b0f45244f9989fc056f7243ba1affbc  openlist-runsv-4.2.11-beta.20261124-mount-armeabi-v7a.zip
+a544b3a990feb44fa1d682a62854e377ee89f0d900e8bdd55a20573d1d34fb0b  openlist-runsv-4.2.11-beta.20261124-mount-x86_64.zip
+af0af3782229931d5263bedfb45b9313d86c52abd55d972bc915452323f7a699  openlist-runsv-4.2.11-beta.20261124-mount-x86.zip
 ```
