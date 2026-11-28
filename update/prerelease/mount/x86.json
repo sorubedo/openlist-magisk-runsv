@@ -1,6 +1,6 @@
 {
-  "version": "4.2.11-beta.20261124",
-  "versionCode": 261124004,
-  "zipUrl": "https://github.com/sorubedo/openlist-magisk-runsv/releases/download/beta/openlist-runsv-4.2.11-beta.20261124-mount-x86.zip",
+  "version": "4.2.11-beta.20261128",
+  "versionCode": 261128004,
+  "zipUrl": "https://github.com/sorubedo/openlist-magisk-runsv/releases/download/beta/openlist-runsv-4.2.11-beta.20261128-mount-x86.zip",
   "changelog": "https://raw.githubusercontent.com/sorubedo/openlist-magisk-runsv/main/update/prerelease/changelog.md"
 }
